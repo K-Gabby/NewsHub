@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_KEY = "d7f171a84df94c3da1e7344e9ffe7cab";
+// ✅ Use environment variable from Netlify or .env file
+const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
 // Fetch news by category and country
 const fetchNewsByCountry = async (category, country) => {
@@ -19,9 +20,8 @@ const fetchNewsByCountry = async (category, country) => {
 export const fetchCombinedNews = async (category) => {
   const [usNews, ngNews] = await Promise.all([
     fetchNewsByCountry(category, "us"),
-    fetchNewsByCountry(category, "ng"), // 'ng' is the code for Nigeria
+    fetchNewsByCountry(category, "ng"),
   ]);
 
-  // Optional: You can shuffle or merge uniquely
   return [...ngNews, ...usNews];
 };
